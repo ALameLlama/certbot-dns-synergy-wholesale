@@ -17,3 +17,6 @@ zeep = "^4.2.1"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.plugins."certbot.plugins"]
+"dns-synergy-wholesale" = "certbot_dns_synergy_wholesale:Authenticator"
