@@ -1,4 +1,4 @@
-# certbot-synergy-wholesale (This is WIP)
+# certbot-dns-synergy-wholesale (This is WIP)
 A Synergy Wholesale DNS plugin for Cerbot to authenticate and retrieve Lets Encrypt certificates
 
 # TODO Update better docs and docker file.
