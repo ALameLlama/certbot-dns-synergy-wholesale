@@ -5,9 +5,9 @@ description = "A synergy wholesale dns plugin for cerbot to authenticate and ret
 authors = ["Nicholas Ciechanowski <nicholasaciechanowski@gmail.com>"]
 license = "Apache-2.0"
 readme = "README.md"
-repository = "https://github.com/ALameLlama/certbot-dns-synergy-wholesale"
+repository = "https://github.com/ALameLlama/certbot-synergy-wholesale"
 
-packages = [{ include = "certbot_dns_synergy_wholesale.py" }]
+packages = [{ include = "certbot_synergy_wholesale.py" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -19,4 +19,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.plugins."certbot.plugins"]
-"dns-synergy-wholesale" = "certbot_dns_synergy_wholesale:Authenticator"
+"synergy-wholesale" = "certbot_synergy_wholesale:Authenticator"
