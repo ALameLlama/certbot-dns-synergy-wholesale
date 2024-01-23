@@ -109,7 +109,7 @@ class _SynergyWholesale:
         request_data = {
             "domainName": domain,
             "recordName": validation_name,
-            "recordType": "txt",
+            "recordType": "TXT",
             "recordContent": validation,
             "recordTTL": 300,
             "recordPrio": 0,
