@@ -36,14 +36,14 @@ class Authenticator(dns_common.DNSAuthenticator):
         return "synergy_wholesale"
 
     def _validate(self, credentials) -> None:
-        if not credentials.conf("api-key"):
+        if not credentials.conf("api_key"):
             raise errors.PluginError(
                 "Missing property in credentials configuration file {0}: {1}".format(
                     credentials.confobj.filename, "synergy_wholesale_api_key"
                 )
             )
 
-        if not credentials.conf("reseller-id"):
+        if not credentials.conf("reseller_id"):
             raise errors.PluginError(
                 "Missing property in credentials configuration file {0}: {1}".format(
                     credentials.confobj.filename, "synergy_wholesale_reseller_id"
