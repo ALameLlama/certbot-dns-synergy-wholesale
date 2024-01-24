@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "certbot-dns-synergy-wholesale"
-version = "0.1.0"
+version = "1.0.0"
 description = "A synergy wholesale dns plugin for cerbot to authenticate and retrieve letsencrypt certificates"
 authors = ["Nicholas Ciechanowski <nicholasaciechanowski@gmail.com>"]
 license = "Apache-2.0"
