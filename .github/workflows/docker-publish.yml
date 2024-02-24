@@ -1,4 +1,4 @@
-name: Publiush Docker Image 🐳
+name: Publish Docker Image 🐳
 
 on:
   release:
