@@ -105,7 +105,26 @@ class _SynergyWholesale:
             "apiKey": api_key,
         }
 
+    def domainsplitter(self, full_domain):
+      """Split domain in to parent and subdomains
+
+      Synergy Wholesale API requires the registered domain for its API interactions
+      so we have to extract that from our FQDN.
+
+      Returns tuple of (domain, subdomain)
+      """
+
+      # extract the parent domain
+      parentdomain = '.'.join(full_domain.split(sep='.')[-2:])
+      # And extract the subdomain
+      subdomain = full_domain.removesuffix('.' + parentdomain)
+
+      return parentdomain, subdomain
+
     def add_txt_record(self, domain, validation_name, validation) -> Union[str, None]:
+
+        domain, subdomain = self.domainsplitter(validation_name)
+
         request_data = {
             "domainName": domain,
             "recordName": validation_name,
@@ -122,6 +141,9 @@ class _SynergyWholesale:
         return None if response["status"] == "OK" else response["errorMessage"]
 
     def del_txt_record(self, domain, validation) -> Union[str, None]:
+
+        domain, subdomain = self.domainsplitter(domain)
+
         id = self.find_txt_record_id(domain, validation)
 
         # If we failed to get id, return early
