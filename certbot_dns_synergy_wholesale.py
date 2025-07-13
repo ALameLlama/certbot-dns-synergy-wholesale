@@ -105,7 +105,7 @@ class _SynergyWholesale:
             "apiKey": api_key,
         }
 
-    def domainsplitter(self, full_domain):
+    def _parse_domain(self, full_domain):
       """Split domain in to parent and subdomains
 
       Synergy Wholesale API requires the registered domain for its API interactions
@@ -115,9 +115,9 @@ class _SynergyWholesale:
       """
 
       # extract the parent domain
-      parentdomain = '.'.join(full_domain.split(sep='.')[-2:])
+      root_domain = '.'.join(full_domain.split(sep='.')[-2:])
       # And extract the subdomain
-      subdomain = full_domain.removesuffix('.' + parentdomain)
+      subdomain = full_domain.removesuffix(parentdomain).removesuffix(".")
 
       return parentdomain, subdomain
 
