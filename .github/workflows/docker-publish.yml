@@ -9,18 +9,58 @@ jobs:
     name: Docker Image 🐳
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code  ✍️
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get latest tag 🤔
+        id: get_tag
+        run: |
+          git fetch --tags
+          TAG=$(git describe --tags --abbrev=0)
+          # Extract version without v prefix
+          VERSION=${TAG#v}
+
+          echo "TAG=${TAG}" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "MAJOR=$(echo $VERSION | cut -d. -f1)" >> $GITHUB_ENV
+          echo "MINOR=$(echo $VERSION | cut -d. -f2)" >> $GITHUB_ENV
+          echo "PATCH=$(echo $VERSION | cut -d. -f3)" >> $GITHUB_ENV
+
+          echo "Found tag: ${TAG}"
+          echo "Version: ${VERSION}"
+
+          # Check out the tagged commit
+          git checkout ${TAG}
+
       - name: Set up QEMU 🔨
         uses: docker/setup-qemu-action@v3
+
       - name: Set up Docker Buildx 🔧
         uses: docker/setup-buildx-action@v3
+
       - name: Login to Docker Hub 🔒
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build distribution 📦
-        uses: docker/build-push-action@v5
+
+      - name: Set up Docker tags 🤔
+        id: docker_tags
+        run: |
+          TAGS="alamellama/certbot-dns-synergy-wholesale:latest"
+          TAGS="${TAGS},alamellama/certbot-dns-synergy-wholesale:${VERSION}"
+          TAGS="${TAGS},alamellama/certbot-dns-synergy-wholesale:${MAJOR}"
+          TAGS="${TAGS},alamellama/certbot-dns-synergy-wholesale:${MAJOR}.${MINOR}"
+          echo "TAGS=${TAGS}" >> $GITHUB_ENV
+          echo "Will push the following tags: ${TAGS}"
+
+      - name: Build distribution 📦
+        uses: docker/build-push-action@v6
         with:
+          context: ./
+          platforms: linux/amd64,linux/arm64
+          file: ./Dockerfile
           push: true
-          tags: alamellama/certbot-dns-synergy-wholesale:latest
+          tags: ${{ env.TAGS }}
