@@ -4,6 +4,7 @@ from typing import Any, Callable, Optional, Union
 from certbot import errors
 from certbot.plugins import dns_common
 from certbot.plugins.dns_common import CredentialsConfiguration
+from publicsuffixlist import PublicSuffixList
 from zeep import Client, Settings
 
 logger = logging.getLogger(__name__)
@@ -114,19 +115,20 @@ class _SynergyWholesale:
       Returns tuple of (domain, subdomain)
       """
 
-      # extract the parent domain
-      root_domain = '.'.join(full_domain.split(sep='.')[-2:])
-      # And extract the subdomain
-      subdomain = full_domain.removesuffix(parentdomain).removesuffix(".")
+      # extract the root domain
+      psl = PublicSuffixList()
+      root_domain =psl.privatesuffix(full_domain)
 
-      return parentdomain, subdomain
+      # And extract the subdomain
+      subdomain = full_domain.removesuffix(root_domain).removesuffix(".")
+
+      return root_domain, subdomain
 
     def add_txt_record(self, domain, validation_name, validation) -> Union[str, None]:
-
-        domain, subdomain = self.domainsplitter(validation_name)
+        root_domain, _ = self._parse_domain(validation_name)
 
         request_data = {
-            "domainName": domain,
+            "domainName": root_domain,
             "recordName": validation_name,
             "recordType": "TXT",
             "recordContent": validation,
@@ -141,17 +143,16 @@ class _SynergyWholesale:
         return None if response["status"] == "OK" else response["errorMessage"]
 
     def del_txt_record(self, domain, validation) -> Union[str, None]:
+        root_domain, _ = self._parse_domain(domain)
 
-        domain, subdomain = self.domainsplitter(domain)
-
-        id = self.find_txt_record_id(domain, validation)
+        id = self._find_txt_record_id(root_domain, validation)
 
         # If we failed to get id, return early
         if id is None:
             return "Failed to find record"
 
         request_data = {
-            "domainName": domain,
+            "domainName": root_domain,
             "recordID": id,
         }
 
@@ -160,7 +161,7 @@ class _SynergyWholesale:
 
         return None if response["status"] == "OK" else response["errorMessage"]
 
-    def find_txt_record_id(self, domain, validation) -> Union[str, None]:
+    def _find_txt_record_id(self, domain, validation) -> Union[str, None]:
         request_data = {"domainName": domain}
 
         request_data.update(self.base_request)

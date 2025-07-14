@@ -1,60 +1,28 @@
-name: Publish Python 🐍 distribution 📦 to PyPI
+name: "Publish 🚀"
 
 on:
   release:
-    types: [published]
+    types: ["published"]
 
 jobs:
-  build:
-    name: Build distribution 📦
+  run:
+    name: "Build and publish release 📦"
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.x"
-    - name: Install pypa/build
-      run: |
-        python3 -m pip install build --user
-    - name: Build a binary wheel and a source tarball
-      run: python3 -m build
-    - name: Store the distribution packages
-      uses: actions/upload-artifact@v4
-      with:
-        name: python-package-distributions-${{ runner.os }}
-        path: dist/
+      - uses: actions/checkout@v4
 
-  merge:
-    name: Merge Artifacts 🛠️
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - name: Merge Artifacts
-      uses: actions/upload-artifact/merge@v4
-      with:
-        name: python-package-distributions
-        pattern: python-package-distributions-*
-        merge-multiple: true
+      - name: Install uv ⚡
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
 
-  publish-to-pypi:
-    name: Publish Python 🐍 distribution 📦 to PyPI
-    if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
-    needs:
-      - merge
-    runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/certbot-dns-synergy-wholesale
-    permissions:
-      id-token: write  # IMPORTANT: mandatory for trusted publishing
+      - name: Set up Python 🐍
+        run: uv python install 3.12
 
-    steps:
-    - name: Download All Artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: python-package-distributions
-        path: dist/
-    - name: Publish distribution 📦 to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Build 🛠️
+        run: uv build
+
+      - name: Publish 🚀
+        uses: pypa/gh-action-pypi-publish@release/v1

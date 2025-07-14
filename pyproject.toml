@@ -1,22 +1,31 @@
-[tool.poetry]
+[project]
 name = "certbot-dns-synergy-wholesale"
-version = "1.0.3"
+version = "1.1.0"
 description = "A Synergy Wholesale DNS plugin for Cerbot to authenticate and retrieve Lets Encrypt certificates"
-authors = ["Nicholas Ciechanowski <nicholasaciechanowski@gmail.com>"]
-license = "Apache-2.0"
+authors = [
+    { name = "Nicholas Ciechanowski", email = "nicholas@ciech.anow.ski" },
+]
+requires-python = "~=3.10.0"
 readme = "README.md"
-repository = "https://github.com/ALameLlama/certbot-dns-synergy-wholesale"
+license = "Apache-2.0"
+dependencies = [
+    "certbot>=4",
+    "publicsuffixlist>=1.0.2.20250710",
+    "zeep>=4.2.1,<5",
+]
 
-packages = [{ include = "certbot_dns_synergy_wholesale.py" }]
+[project.urls]
+Repository = "https://github.com/ALameLlama/certbot-dns-synergy-wholesale"
 
-[tool.poetry.dependencies]
-python = "^3.10"
-certbot = "^2.8.0"
-zeep = "^4.2.1"
+[project.entry-points."certbot.plugins"]
+dns-synergy-wholesale = "certbot_dns_synergy_wholesale:Authenticator"
+
+[tool.hatch.build.targets.sdist]
+include = ["certbot_dns_synergy_wholesale.py"]
+
+[tool.hatch.build.targets.wheel]
+include = ["certbot_dns_synergy_wholesale.py"]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.plugins."certbot.plugins"]
-"dns-synergy-wholesale" = "certbot_dns_synergy_wholesale:Authenticator"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
