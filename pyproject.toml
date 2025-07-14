@@ -1,6 +1,6 @@
 [project]
 name = "certbot-dns-synergy-wholesale"
-version = "1.1.0"
+dynamic = ["version"]
 description = "A Synergy Wholesale DNS plugin for Cerbot to authenticate and retrieve Lets Encrypt certificates"
 authors = [
     { name = "Nicholas Ciechanowski", email = "nicholas@ciech.anow.ski" },
@@ -26,6 +26,9 @@ include = ["certbot_dns_synergy_wholesale.py"]
 [tool.hatch.build.targets.wheel]
 include = ["certbot_dns_synergy_wholesale.py"]
 
+[tool.hatch.version]
+source = "vcs"
+
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
