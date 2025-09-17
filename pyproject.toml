@@ -9,7 +9,7 @@ requires-python = ">=3.10"
 readme = "README.md"
 license = "Apache-2.0"
 dependencies = [
-    "certbot>=4",
+    "certbot>=5",
     "publicsuffixlist>=1.0.2.20250710",
     "zeep>=4.2.1,<5",
 ]
