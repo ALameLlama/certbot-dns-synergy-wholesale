@@ -5,7 +5,7 @@ description = "A Synergy Wholesale DNS plugin for Cerbot to authenticate and ret
 authors = [
     { name = "Nicholas Ciechanowski", email = "nicholas@ciech.anow.ski" },
 ]
-requires-python = "~=3.10.0"
+requires-python = ">=3.10"
 readme = "README.md"
 license = "Apache-2.0"
 dependencies = [
