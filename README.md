@@ -8,7 +8,7 @@
 <a href="https://github.com/ALameLlama/certbot-dns-synergy-wholesale/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg" alt="License"></a>
 </p>
 
-A [Synergy Wholesale](https://synergywholesale.com) DNS plugin for [Cerbot](https://certbot.eff.org/) to authenticate and retrieve Lets Encrypt certificates. Automates the process of completing a `dns-01` challenge by creating, and subsequently removing, `TXT` records
+A [Synergy Wholesale](https://synergywholesale.com) DNS plugin for [Certbot](https://certbot.eff.org/) to authenticate and retrieve Lets Encrypt certificates. Automates the process of completing a `dns-01` challenge by creating, and subsequently removing, `TXT` records
 
 ## Installation
 
@@ -35,6 +35,7 @@ To start using DNS authentication for Synergy Wholesale, pass the following argu
 | ------------------------------------------ | ------------------------------------------ |
 | `--authenticator dns-synergy-wholesale`    | select the authenticator plugin (Required) |
 | `--dns-synergy-wholesale-credentials FILE` | credentials INI file. (Required)           |
+| `--dns-synergy-wholesale-propagation-seconds N` | seconds to wait for DNS propagation (default: 30) |
 
 ## Credentials
 
@@ -62,6 +63,8 @@ To acquire a single certificate for both `example.com` and `*.example.com`
       -d '*.example.com'
 
 You can also add addtional paramaters such as `--keep-until-expiring --non-interactive --expand` for automation. More information [here](https://eff-certbot.readthedocs.io/en/stable/using.html#certbot-command-line-options)
+
+You may also set the DNS propagation wait time (in seconds) with the `--dns-synergy-wholesale-propagation-seconds` argument. This controls how long Certbot waits after creating the DNS TXT record before proceeding. Increase this value if your DNS provider is slow to update records.
 
 ## Docker
 
@@ -97,4 +100,21 @@ pip install uv
 
 # Install all dependencies using the lockfile
 uv sync --dev
+```
+
+## Testing
+
+This project includes unit tests that mock external services (Certbot and the Synergy Wholesale SOAP API) so they run quickly and offline.
+
+```
+pytest -q
+```
+
+## Linting
+
+This project uses `ruff` for linting. To run it, use:
+
+```
+ruff check . --fix
+ruff format .
 ```

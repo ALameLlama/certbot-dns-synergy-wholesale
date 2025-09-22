@@ -1,2 +1,6 @@
 credentials.ini
 __pycache__
+
+.idea
+conf
+logs

@@ -11,6 +11,8 @@ license = "Apache-2.0"
 dependencies = [
     "certbot>=5",
     "publicsuffixlist>=1.0.2.20250710",
+    "pytest>=8.4.2",
+    "ruff>=0.13.1",
     "zeep>=4.2.1,<5",
 ]
 
