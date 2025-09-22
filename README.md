@@ -16,6 +16,9 @@ A [Synergy Wholesale](https://synergywholesale.com) DNS plugin for [Cerbot](http
 # create a virtual environment, to avoid conflicts
 python3 -m venv /some/path
 
+# activate the virtual environment
+source /some/path/bin/activate
+
 # use the pip in the virtual environment to install or update
 /some/path/bin/pip install -U certbot-dns-synergy-wholesale
 
