@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/ALameLlama/certbot-dns-synergy-wholesale/compare/v2.0.0...v2.0.1) (2025-09-22)
+
+
+### Miscellaneous Chores
+
+* release 2.0.1 ([4c07aef](https://github.com/ALameLlama/certbot-dns-synergy-wholesale/commit/4c07aef55d9284983b121296d48fe1caa5142ac5))
+
 ## [2.0.0](https://github.com/ALameLlama/certbot-dns-synergy-wholesale/compare/v2.0.0...v2.0.0) (2025-09-22)
 
 
