@@ -8,7 +8,7 @@
 <a href="https://github.com/ALameLlama/certbot-dns-synergy-wholesale/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg" alt="License"></a>
 </p>
 
-A [Synergy Wholesale](https://synergywholesale.com) DNS plugin for [Cerbot](https://certbot.eff.org/) to authenticate and retrieve Lets Encrypt certificates. Automates the process of completing a `dns-01` challenge by creating, and subsequently removing, `TXT` records
+A [Synergy Wholesale](https://synergywholesale.com) DNS plugin for [Certbot](https://certbot.eff.org/) to authenticate and retrieve Lets Encrypt certificates. Automates the process of completing a `dns-01` challenge by creating, and subsequently removing, `TXT` records
 
 ## Installation
 
