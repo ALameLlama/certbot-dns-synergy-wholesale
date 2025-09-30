@@ -2,7 +2,7 @@
 
 <p align="center">
 <a href="https://github.com/ALameLlama/certbot-dns-synergy-wholesale/actions/workflows/docker-publish.yml"><img src="https://img.shields.io/github/actions/workflow/status/ALameLlama/certbot-dns-synergy-wholesale/.github/workflows/docker-publish.yml" alt="Build"></a>
-<a href="https://hub.docker.com/r/alamellama/certbot-dns-synergy-wholesale"><img alt="Docker Image Version" src="https://img.shields.io/docker/v/alamellama/certbot-dns-synergy-wholesale"></a>
+<a href="https://pypi.org/project/certbot-dns-synergy-wholesale/"><img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/certbot-dns-synergy-wholesale"></a>
 <a href="https://hub.docker.com/r/alamellama/certbot-dns-synergy-wholesale"><img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/alamellama/certbot-dns-synergy-wholesale"></a>
 <a href="https://hub.docker.com/r/alamellama/certbot-dns-synergy-wholesale"><img alt="Docker Image Size (tag)" src="https://img.shields.io/docker/image-size/alamellama/certbot-dns-synergy-wholesale/latest"></a>
 <a href="https://github.com/ALameLlama/certbot-dns-synergy-wholesale/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg" alt="License"></a>
